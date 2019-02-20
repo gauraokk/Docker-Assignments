@@ -5,3 +5,4 @@
 - Use the `nginx` image 
 - Use `ports` to expose Nginx on 8080
 - Walk though Nginx in browser at http://localhost:8080
+-Show Hello gaurav message on the home page
