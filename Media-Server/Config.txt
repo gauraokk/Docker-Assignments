@@ -1,0 +1,22 @@
+#configure media streaming server using Jellyfins
+
+Step 1: docker pull jellyfin/jellyfin #pull jellyfins docker image
+
+Step 2: mkdir media-server		#Configure volume mount point for the media server configs 
+        mkdir media-server/config
+        mkdir media-server/cache
+
+Step 3: mkdir media-server/media       #bind mount for streaming media video files
+
+Step 4: chmod 777 -R media-server/    #Change permission of directory 
+
+Step 5: firewall-cmd --permanent --add-port=8096 --zone=public   # Update firewall settings as it will listen on 8096 default port
+  	firewall-cmd --permanent --add-port=8096/tcp --zone=public
+    	firewall-cmd --permanent --add-port=8096/udp --zone=public
+    	firewall-cmd --reload 
+
+Step 6: docker run -d --name jellyfin --net=host --volume /root/media-server/config:/config --volume /root/media-server/cache:/cache --mount type=bind,source=/root/media-server/media,target=/media --restart=unless-stopped jellyfin/jellyfin  
+
+
+
+Now you can proceed further GUI based configs by accessing http://<host-IP>:8096 
